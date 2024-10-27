@@ -185,10 +185,6 @@ Ensure all required environment variables are set in your deployment environment
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🆘 Support
-
-For support, email support@your-org.com or join our Slack channel.
-
 ## 🔍 Documentation
 
 - [API Documentation](docs/api.md)
