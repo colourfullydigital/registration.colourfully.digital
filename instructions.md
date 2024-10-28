@@ -3,7 +3,7 @@ We are building an MVP designed to streamline the management of workshops, camps
 
 ## Tech Stack
 
-- **Frontend**: Next.js 15 with App Router
+- **Frontend**: Remix with App Router
 - **UI Framework**: Tailwind CSS with ShadCN components
 - **Database and Backend**: Supabase (PostgreSQL)
 - **Authentication**: Clerk
