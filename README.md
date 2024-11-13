@@ -77,7 +77,7 @@ stem-education-platform/
 
 ## 🔧 Core Technologies
 
-- **Framework**: Next.js 15 with App Router
+- **Framework**: Remix with App Router
 - **Database**: Supabase (PostgreSQL)
 - **Authentication**: Clerk
 - **UI Components**: shadcn/ui
