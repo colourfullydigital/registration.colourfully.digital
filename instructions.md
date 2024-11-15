@@ -18,42 +18,42 @@ We are building an MVP designed to streamline the management of workshops, camps
 - **Staff**: Supporting program operations
 
 # Core functionalities
-1. Authentication & User Management
+### 1. Authentication & User Management
   - Multi-tenant user authentication system
   - Role-based access control (RBAC)
   - Social login options
   - Profile management
   - Organization management
 
-2. Registration System
+### 2. Registration System
   - Multi-step registration flow
   - Shopping cart for multiple registrations
   - Waitlist management
   - Document upload and tracking
   - Family account management
 
-3. Payment Processing
+### 3. Payment Processing
   - Secure credit card processing
   - Payment plans and recurring billing
   - Refund and credit management
   - PCI compliance
   - Receipt generation
 
-4. Communication System
+### 4. Communication System
   - Email notifications with templates
   - SMS notifications
   - In-app messaging
   - Automated communication workflows
   - Announcement system
 
-5. Program Management
+### 5. Program Management
   - Class/workshop creation and management
   - Attendance tracking
   - Resource allocation
   - Instructor schedule management
   - Curriculum tracking
 
-6. Reporting and Analytics
+### 6. Reporting and Analytics
   - Real-time dashboard
   - Custom report builder
   - Data export functionality
