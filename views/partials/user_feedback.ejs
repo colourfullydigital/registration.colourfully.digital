@@ -1,0 +1,22 @@
+<section>
+    <!-- error -->
+    <% if (typeof error !=="undefined" ) { %>
+    <div class="alert alert-danger" role="alert">
+        <%= error %>
+    </div>
+    <% } %>
+
+    <!-- message -->
+    <% if (typeof message !=="undefined" ) { %>
+    <div class="alert alert-success" role="alert">
+        <%= message %>
+    </div>
+    <% } %>
+
+    <!-- User Warning -->
+    <% if (typeof warning !=="undefined" ) { %>
+    <div class="alert alert-warning" role="alert">
+        <%= warning %>
+    </div>
+    <% } %>
+</section>

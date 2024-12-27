@@ -1,0 +1,13 @@
+body{
+  color: whitesmoke;
+}
+
+.form-control {
+  background-color: #212529;
+  color: whitesmoke;
+}
+
+.modal-background{
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+}

@@ -1,0 +1,28 @@
+<footer class="mt-auto container align-items-end">
+    <div class="row ">
+        <div class="col-12 d-flex align-items-center justify-content-center ">
+            <p>&copy; 2024 Colourfully Digital Org. All rights reserved.</p>
+        </div>
+
+        <div class="col-12 d-flex justify-content-center"><a href="/about">About Us</a></div>
+        <div class="col-12 d-flex justify-content-center"><a href="/contact">Contact</a></div>
+        <div class="col-12 d-flex justify-content-center"><a href="/privacy">Privacy Policy</a></div>
+    </div>
+</footer>
+</body>
+
+<!-- Make the correct nav-link active -->
+<script>
+    Array.from(document.getElementsByClassName("nav-link")).forEach(e => {
+        e.classList.remove("active");
+        if (document.URL.endsWith(e.href)) {
+            e.classList.add("active");
+        }
+    })
+</script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+</html>
