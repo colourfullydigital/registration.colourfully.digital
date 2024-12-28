@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Check if node index.js is already running
-pid=$( ps aux | grep "node index.js" | grep -v grep | awk '{ print $2 }' )
+pid=$( ps aux | grep "node app.js" | grep -v grep | awk '{ print $2 }' )
 
 if [ -n "$pid" ]; then
   echo "Found running process with PID: $pid"
