@@ -1,0 +1,279 @@
+
+:root {
+  --min-container: 320px;
+  --max-container: 1240px;
+  --min-font-size: 16px;
+  --max-font-size: 20px;
+  --ratio: 1.5;
+  
+  --s0: clamp(var(--min-font-size), 1rem + 0.5cqi, var(--max-font-size));
+  --s-1: clamp(calc(var(--min-font-size) / var(--ratio)), 1rem / var(--ratio) + 0.33cqi, calc(var(--max-font-size) / var(--ratio)));
+  --s-2: clamp(calc(var(--min-font-size) / var(--ratio) / var(--ratio)), 1rem / var(--ratio) / var(--ratio) + 0.22cqi, calc(var(--max-font-size) / var(--ratio) / var(--ratio)));
+  --s-3: clamp(calc(var(--min-font-size) / var(--ratio) / var(--ratio) / var(--ratio)), 1rem / var(--ratio) / var(--ratio) / var(--ratio) + 0.15cqi, calc(var(--max-font-size) / var(--ratio) / var(--ratio) / var(--ratio)));
+  --s-4: clamp(calc(var(--min-font-size) / var(--ratio) / var(--ratio) / var(--ratio) / var(--ratio)), 1rem / var(--ratio) / var(--ratio) / var(--ratio) / var(--ratio) + 0.1cqi, calc(var(--max-font-size) / var(--ratio) / var(--ratio) / var(--ratio) / var(--ratio)));
+  --s-5: clamp(calc(var(--min-font-size) / var(--ratio) / var(--ratio) / var(--ratio) / var(--ratio) / var(--ratio)), 1rem / var(--ratio) / var(--ratio) / var(--ratio) / var(--ratio) / var(--ratio) + 0.07cqi, calc(var(--max-font-size) / var(--ratio) / var(--ratio) / var(--ratio) / var(--ratio) / var(--ratio)));
+  
+  --s1: clamp(calc(var(--min-font-size) * var(--ratio)), 1rem * var(--ratio) + 0.75cqi, calc(var(--max-font-size) * var(--ratio)));
+  --s2: clamp(calc(var(--min-font-size) * var(--ratio) * var(--ratio)), 1rem * var(--ratio) * var(--ratio) + 1.13cqi, calc(var(--max-font-size) * var(--ratio) * var(--ratio)));
+  --s3: clamp(calc(var(--min-font-size) * var(--ratio) * var(--ratio) * var(--ratio)), 1rem * var(--ratio) * var(--ratio) * var(--ratio) + 1.69cqi, calc(var(--max-font-size) * var(--ratio) * var(--ratio) * var(--ratio)));
+  --s4: clamp(calc(var(--min-font-size) * var(--ratio) * var(--ratio) * var(--ratio) * var(--ratio)), 1rem * var(--ratio) * var(--ratio) * var(--ratio) * var(--ratio) + 2.53cqi, calc(var(--max-font-size) * var(--ratio) * var(--ratio) * var(--ratio) * var(--ratio)));
+  --s5: clamp(calc(var(--min-font-size) * var(--ratio) * var(--ratio) * var(--ratio) * var(--ratio) * var(--ratio)), 1rem * var(--ratio) * var(--ratio) * var(--ratio) * var(--ratio) * var(--ratio) + 3.8cqi, calc(var(--max-font-size) * var(--ratio) * var(--ratio) * var(--ratio) * var(--ratio) * var(--ratio)));
+  
+  /* Space: @link https://utopia.fyi/space/calculator?c=320,18,1.2,1240,20,1.25,6,3,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+  /* Type: @link https://utopia.fyi/type/calculator?c=320,18,1.2,1240,20,1.25,6,3,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+  --space-3xs: clamp(0.3125rem, 0.3125rem + 0vw, 0.3125rem);
+  --space-2xs: clamp(0.5625rem, 0.5408rem + 0.1087vw, 0.625rem);
+  --space-xs: clamp(0.875rem, 0.8533rem + 0.1087vw, 0.9375rem);
+  --space-s: clamp(1.125rem, 1.0815rem + 0.2174vw, 1.25rem);
+  --space-m: clamp(1.6875rem, 1.6223rem + 0.3261vw, 1.875rem);
+  --space-l: clamp(2.25rem, 2.163rem + 0.4348vw, 2.5rem);
+  --space-xl: clamp(3.375rem, 3.2446rem + 0.6522vw, 3.75rem);
+  --space-2xl: clamp(4.5rem, 4.3261rem + 0.8696vw, 5rem);
+  --space-3xl: clamp(6.75rem, 6.4891rem + 1.3043vw, 7.5rem);
+
+  /* One-up pairs */
+  --space-3xs-2xs: clamp(0.3125rem, 0.2038rem + 0.5435vw, 0.625rem);
+  --space-2xs-xs: clamp(0.5625rem, 0.4321rem + 0.6522vw, 0.9375rem);
+  --space-xs-s: clamp(0.875rem, 0.7446rem + 0.6522vw, 1.25rem);
+  --space-s-m: clamp(1.125rem, 0.8641rem + 1.3043vw, 1.875rem);
+  --space-m-l: clamp(1.6875rem, 1.4049rem + 1.413vw, 2.5rem);
+  --space-l-xl: clamp(2.25rem, 1.7283rem + 2.6087vw, 3.75rem);
+  --space-xl-2xl: clamp(3.375rem, 2.8098rem + 2.8261vw, 5rem);
+  --space-2xl-3xl: clamp(4.5rem, 3.4565rem + 5.2174vw, 7.5rem);
+
+  /* Custom pairs */
+  --space-s-l: clamp(1.125rem, 0.6467rem + 2.3913vw, 2.5rem);
+
+/* @link https://utopia.fyi/grid/calculator?c=320,18,1.2,1240,20,1.25,6,3,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+  --grid-max-width: 77.50rem;
+  --grid-gutter: var(--space-s-l, clamp(1.125rem, 0.6467rem + 2.3913vw, 2.5rem));
+  --grid-columns: 12;
+
+/* @link https://utopia.fyi/clamp/calculator?a=320,1240,16—48 */
+  --fluid-16-48: clamp(1rem, 0.3043rem + 3.4783vw, 3rem);
+
+  --measure: 60ch;
+
+  /* Font family variables 
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  --font-serif: 'Merriweather', 'Georgia', serif;
+  --font-mono: 'Fira Code', 'Consolas', monospace;*/
+
+  /* Font weight variables */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+}
+
+* {
+  max-inline-size: var( --measure );
+}
+
+html,
+body,
+div,
+header,
+header *,
+nav,
+main,
+footer {
+  max-inline-size: none;
+}
+
+.u-container {
+  max-width: var(--grid-max-width);
+  padding-inline: var(--grid-gutter);
+  margin-inline: auto;
+}
+
+.u-grid {
+  display: grid;
+  gap: var(--grid-gutter);
+}
+
+box-l,
+.box-l {
+  display: block;
+  padding: var(--space-xs);
+  border-width: var(--pico-border-width);
+  /* ↓ For high contrast mode */
+  outline: var(--pico-border-width) solid transparent;
+  outline-offset: calc(var(--pico-border-width) * -1);
+}
+
+stack-l,
+.stack-l {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+stack-l > * + *,
+.stack-l > * + * {
+  margin-top: var(--space-xs);
+}
+
+center-l,
+.center-l {
+  display: block;
+  box-sizing: content-box;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: var(--measure);
+}
+
+cluster-l > *,
+.cluster-l > * {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: calc(var(--space-xs) / 2 * -1);
+}
+
+cluster-l > * > *,
+.cluster-l > * > * {
+  margin: calc(var(--space-xs) / 2);
+}
+
+sidebar-l > *,
+.sidebar-l > * {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+sidebar-l > * > *,
+.sidebar-l > * > * {
+  flex-grow: 1;
+}
+
+switcher-l,
+.switcher-l {
+  display: block;
+}
+
+switcher-l > *,
+.switcher-l > * {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+switcher-l > * > *,
+.switcher-l > * > * {
+  flex-basis: calc((var(--measure) - 100%) * 999);
+  flex-grow: 1;
+}
+
+cover-l,
+.cover-l {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: var(--space-3xs);
+}
+
+frame-l,
+.frame-l {
+  display: block;
+  position: relative;
+  padding-bottom: calc(6 / 9 * 100%);
+}
+
+frame-l > *,
+.frame-l > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+frame-l > img, 
+frame-l > video,
+.frame-l > img,
+.frame-l > video
+ {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+reel-l,
+.reel-l {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-color: var(--color-light) var(--color-dark);
+}
+
+reel-l > *,
+.reel-l > * {
+  flex: 0 0 var(--item-width);
+}
+
+reel-l > img,
+.reel-l > img {
+  height: 100%;
+  flex-basis: auto;
+  width: auto;
+}
+
+reel-l::-webkit-scrollbar,
+.reel-l::-webkit-scrollbar {
+  height: 1rem;
+}
+
+reel-l::-webkit-scrollbar-track,
+.reel-l::-webkit-scrollbar-track {
+  background-color: var(--color-dark);
+}
+
+reel-l::-webkit-scrollbar-thumb,
+.reel-l::-webkit-scrollbar-thumb {
+  background-color: var(--color-dark);
+  background-image: linear-gradient(var(--color-dark) 0, var(--color-dark) 0.25rem, var(--color-light) 0.25rem, var(--color-light) 0.75rem, var(--color-dark) 0.75rem);
+}
+
+imposter-l,
+.imposter-l {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+icon-l svg,
+.icon-l svg {
+  height: 0.75em;
+  height: 1cap;
+  width: 0.75em;
+  width: 1cap;
+}
+
+container-l,
+.container-l {
+  display: block;
+}
+
+header nav,
+.logo {
+  align-items: center;
+}
+
+nav ul.cluster-l {
+  align-items: center;
+  justify-content: space-between;
+  padding-inline-start: 0;
+}
+.logo {
+  --font-weight-bold: 900;
+  color: var( --pico-color);
+  font-size: var( --s0 );
+  font-weight: var( --font-weight-bold );
+  padding-inline-start: 0;
+  text-decoration: none;
+}

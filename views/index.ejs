@@ -1,35 +1,35 @@
-<%- include('layouts/head') %>
-<main>
-    <div class="container mt-4">
-        <%- include('partials/user_feedback.ejs') %>
-        <section class="hero text-left">
-            <% if( typeof first_name==="undefined" ){ %>
-            <h1 class="display-4">Welcome to Parent Registraiton</h1>
-            <% } else { %>
-            <h1 class="display-4">Hi <%= first_name %>!</h1>
-            <% }%>
-            <p class="lead">Welcome the the parent Registration Website</p>
-        </section>
+<%- include('partials/user_feedback.ejs') %>
+<hgroup class="hero text-left">
+    <% if( typeof first_name==="undefined" ){ %>
+    <h1>Welcome to the workshop registration</h1>
+    <% } else { %>
+    <h1>Hi <%= first_name %>!</h1>
+    <% }%>
+    <p class="lead">Welcome to the workshop registration Website</p>
+</hgroup>
 
-        <section class="featured mt-5">
-            <!-- Look at programs -->
-            <p>
-                Trust in the LORD with all your heart and lean not on your own understanding in all your ways acknowledge him, and he will make your paths straight. Do not conform any longer to the pattern of this world, but be transformed by the renewing of your mind. Then you will be able to test and approve what God's will is—his good, pleasing and perfect will. Do not be anxious about anything, but in everything, by prayer and petition, with thanksgiving, present your requests to God. Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit. For it is by grace you have been saved, through faith—and this not from yourselves, it is the gift of God.
+<section class="featured mt-5">
+    <article class="box-l">
+        <h2>Upcoming Programs</h2>
+        <p>Discover our exciting STEM workshops and classes.</p>
+        <a href="/programs">View Programs</a>
+    </article>
+    
+    <!-- Manage Dependents -->
+    <% if( typeof first_name!=="undefined" ){ %>
+    <article class="box-l">
+        <h2>Family Management</h2>
+        <p>Manage your family members and dependents.</p>
+        <a href="/dependents" role="button">Manage Family</a>
+    </article>
+    <% } %>
 
-            </p>
-            <p>
-                Trust in the LORD with all your heart and lean not on your own understanding in all your ways acknowledge him, and he will make your paths straight. Do not conform any longer to the pattern of this world, but be transformed by the renewing of your mind. Then you will be able to test and approve what God's will is—his good, pleasing and perfect will. Do not be anxious about anything, but in everything, by prayer and petition, with thanksgiving, present your requests to God. Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit. For it is by grace you have been saved, through faith—and this not from yourselves, it is the gift of God.
-            </p>
-            <!-- Manage Dependents -->
-
-            <!--  -->
-
-        </section>
-    </div>
-</main>
-
-<%- include('layouts/footer') %>
-
-</body>
-
-</html>
+    <!-- Sign up prompt for non-logged in users -->
+    <% if( typeof first_name==="undefined" ){ %>
+    <article class="box-l">
+        <h2>Get Started</h2>
+        <p>Create an account to register for workshops and manage your family members.</p>
+        <a href="/sign_up" role="button">Sign Up Now</a>
+    </article>
+    <% } %>
+</section>
