@@ -24,7 +24,7 @@ async function authenticatingUsers(req, res) {
   }
 
   // if username & password is correct redirect to landing page.
-  if (result.rowCount > 0) {
+  if (result && result.rowCount > 0) {
     bcrypt.compare(password, result.rows[0].hashed_password, (e, r) => {
       console.log(`user authentication: ${r}`);
       if (r) {
