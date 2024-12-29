@@ -21,6 +21,7 @@ async function authenticatingUsers(req, res) {
     res.render("pages/sign_in_page", {
       error: "Backend Error. Call Admin (11111)",
     });
+    return;
   }
 
   // if username & password is correct redirect to landing page.
