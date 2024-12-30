@@ -61,7 +61,7 @@ Visit `http://localhost:3000` to see the application.
 ## 🏗 Project Structure
 
 ```
-stem-education-platform/
+registration.colourfully.digital/
 ├── app/                     # Next.js 15 app directory
 │   ├── (auth)/             # Authentication routes
 │   ├── (dashboard)/        # Protected dashboard routes
