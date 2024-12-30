@@ -1,4 +1,4 @@
-# STEM Education Portal
+# Registration portal for Colourfully Digital Foundation
 
 A modern platform for managing STEM educational events including workshops, camps, and classes. Built with Next.js 15, Supabase, and Clerk.
 
