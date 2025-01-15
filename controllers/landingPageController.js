@@ -8,15 +8,15 @@ async function servingLanding(req, res) {
         `select first_name from users where id=${req.session.user};`
       );
     } catch {
-      res.render("index");
+      res.render("pages/index");
     }
     if (result.rowCount > 0) {
-      res.render("index", result.rows[0]);
+      res.render("pages/index", result.rows[0]);
     } else {
-      res.render("index");
+      res.render("pages/index");
     }
   } else {
-    res.render("index");
+    res.render("pages/index");
   }
 }
 
