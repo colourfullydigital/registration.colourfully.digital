@@ -1,8 +1,8 @@
 <header>
     <nav>
         <a href="/" class="logo">
-          <img src="/logo.png" alt="" height="32" width="32"/>
-          Colourfully Digital
+            <img src="logo.png" alt="" height="32" width="32" />
+            Colourfully Digital
         </a>
         <ul>
             <li>
@@ -14,25 +14,27 @@
             <li>
                 <a href="/about">About</a>
             </li>
-             <% if (typeof first_name !=="undefined" ) { %>
+            <% if (typeof first_name !=="undefined" ) { %>
             <li>
                 <a href="/dependents">Family</a>
             </li>
-            <li class="dropdown nav-item">
-                <button id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/person-circle.svg" alt="Profile picture">
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Account</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="/sign_out">Log Out</a></li>
-                </ul>
+            <li>
+                <details class="dropdown">
+                    <summary role="button">
+                        <img src="/person-circle.svg" alt="Profile picture">
+                    </summary>
+                    <ul dir="rtl">
+                        <li><a class="dropdown-item" href="#">Account</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="/sign_out">Log Out</a></li>
+                    </ul>
+                </details>
             </li>
             <% } else {%>
-           <li>
+            <li>
                 <a href="/sign_up">Sign Up</a>
             </li>
             <li>

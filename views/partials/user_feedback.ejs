@@ -1,21 +1,21 @@
 <section>
     <!-- error -->
     <% if (typeof error !=="undefined" ) { %>
-    <div class="alert alert-danger" role="alert">
+    <div class="red-color-pink-500" role="alert">
         <%= error %>
     </div>
     <% } %>
 
     <!-- message -->
     <% if (typeof message !=="undefined" ) { %>
-    <div class="alert alert-success" role="alert">
+    <div class="green-color-pink-500" role="alert">
         <%= message %>
     </div>
     <% } %>
 
     <!-- User Warning -->
     <% if (typeof warning !=="undefined" ) { %>
-    <div class="alert alert-warning" role="alert">
+    <div class="yellow-color-pink-500" role="alert">
         <%= warning %>
     </div>
     <% } %>

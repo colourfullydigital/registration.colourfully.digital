@@ -8,7 +8,7 @@ async function servingLanding(req, res) {
         `select first_name from users where id=${req.session.user};`
       );
     } catch {
-      res.render("pages/index");
+      console.log("Backend error: 82384729");
     }
     if (result.rowCount > 0) {
       res.render("pages/index", result.rows[0]);

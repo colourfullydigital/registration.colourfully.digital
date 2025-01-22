@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
-    <%- include( "../partials/head" ); %>
-    <body class="cover-l center-l">
-        <%- include( "../partials/header" ); %>
-        <main>
-            <%- include( "../partials/user_feedback.ejs" ); %>
-            <%- body %>
-        </main>
-        <%- include( "../partials/footer" ); %>
-        <%- include( "../partials/resource-scripts" ); %>
-    </body>
+<%- include( "../partials/head" ); %>
+
+<body class="cover-l center-l">
+    <%- include( "../partials/header" ); %>
+    <main>
+        <%- include( "../partials/user_feedback.ejs" ); %>
+        <%- body %>
+    </main>
+    <%- include( "../partials/footer" ); %>
+    <%- include("../partials/resource-scripts" ); %>
+</body>
+
 </html>

@@ -3,7 +3,7 @@ const programs = express.Router();
 const { isAdminRole } = require("../utils/authMiddleware");
 
 programs.get("/", (req, res) => {
-  if (isAdminRole(req)) console.log("user role:" + req.session.role);
+  // if (isAdminRole(req)) console.log("user role:" + req.session.role);
 
   res.render("../views/pages/programs");
 });

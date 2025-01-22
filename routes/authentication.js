@@ -39,15 +39,11 @@ logOut.get("/", isAuthenticated, function (req, res) {
     // guard against forms of session fixation
     req.session.regenerate(function (e) {
       if (e) {
-        res.render("index", {
-          error: "Backend Error. Call Admin (00101)",
-        });
         console.log(e);
+        res.redirect("/");
         return;
       }
-      res.render("index", {
-        message: "You have been successfully signed out. ",
-      });
+      res.redirect('/')
     });
   });
 });
