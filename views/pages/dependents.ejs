@@ -47,74 +47,90 @@
         </div>
         <% } %>
 
-        <div class="modal fade modal-lg" id="dependentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content bg-dark">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="depModalTitle">Edit a dependent</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="editDependentForm" method="post" action="">
-                            <input type="hidden" id="id" name="id">
-                            <div class="row">
-                                <div class="mb-3 col">
-                                    <label for="f_name" class="col-form-label">First Name:</label>
-                                    <input type="text" class="form-control" id="f_name" name="first_name" placeholder="John" required>
-                                </div>
-                                <div class="mb-3 col">
-                                    <label for="l_name" class="col-form-label">Last Name:</label>
-                                    <input type="text" class="form-control" id="l_name" name="last_name" placeholder="Doe" required>
-                                </div>
+        <dialog id="dependentModal">
+            <article>
+                <header>
+                    <button aria-label="Close" rel="prev" onclick="closeAllModal()"></button>
+                    <h5 id="depModalTitle">Edit a dependent</h5>
+                </header>
+                <div class="modal-body">
+                    <form id="editDependentForm" method="post" action="">
+                        <input type="hidden" id="id" name="id">
+                        <div class="row">
+                            <div class="mb-3 col">
+                                <label for="f_name">First Name:</label>
+                                <input type="text" id="f_name" name="first_name" placeholder="John" required>
                             </div>
-                            <div>
-                                <label for="birthday" class="col-form-label">Birthday:</label>
-                                <input class="form-control" type="date" id="birthday" name="birthday" value="2018-07-22" name="birthday" required />
+                            <div class="mb-3 col">
+                                <label for="l_name">Last Name:</label>
+                                <input type="text" id="l_name" name="last_name" placeholder="Doe" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="gender">Gender: </label>
-                                <select class="form-select form-control" name="gender" id="selectGender" placeholder="Please choose an option" required name="gender">
-                                    <!-- <option value="">--Please choose an option--</option> -->
-                                    <option value="male">male</option>
-                                    <option value="female">female</option>
-                                    <option value="other">other</option>
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <input type="button" class="btn btn-danger" value="delete" id="deleteTriggerButton" data-bs-target="#doubleSureModal" data-bs-toggle="modal">
-                        <input type="submit" form="editDependentForm" class="btn btn-primary" value="Save" />
-                    </div>
+                        </div>
+                        <div>
+                            <label for="birthday">Birthday:</label>
+                            <input type="date" id="birthday" name="birthday" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="gender">Gender: </label>
+                            <select class="form-select form-control" name="gender" id="selectGender" aria-label="Please choose an option" required name="gender">
+                                <!-- <option selected value="">--Please choose an option--</option> -->
+                                <option value="male">male</option>
+                                <option value="female">female</option>
+                                <option value="other">other</option>
+                            </select>
+                        </div>
+                    </form>
                 </div>
-            </div>
-        </div>
+                <footer class="grid">
+                    <button type="button" style="background-color: grey; border-color: lightgray;" onclick="closeAllModal()">Cancel</button>
+                    <input type="button" style="background-color: red; border-color: pink;" value=" Delete" id="deleteTriggerButton" onclick="makeSurePrompt()">
+                    <input type="submit" form="editDependentForm" value="Save" />
+                </footer>
+            </article>
+        </dialog>
 
 
-        <div class="modal fade modal-lg" id="doubleSureModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content bg-dark">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="depModalTitle">Confirm Deletion</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="confirmDeleteForm" method="post" action="/dependents/delete/">
-                            <input type="hidden" id="deleteId" name="id">
-                            <p>Are you sure you want to delete family member <strong id="deleteStatement text-danger"></strong>?</p>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#dependentModal" data-bs-toggle="modal" data-bs-dismiss="modal">Back</button>
-                        <input type="submit" class="btn btn-danger" form="confirmDeleteForm" value="delete" id="delete">
-                    </div>
+        <dialog id="doubleSureModal">
+            <article>
+                <header class="modal-header">
+                    <button aria-label="Close" rel="prev" onclick="closeAllModal()"></button>
+                    <h5 id="depModalTitle">Confirm Deletion</h5>
+                </header>
+                <div class="modal-body">
+                    <form id="confirmDeleteForm" method="post" action="/dependents/delete/">
+                        <input type="hidden" id="deleteId" name="id">
+                        <p>Are you sure you want to delete family member?</p>
+                    </form>
                 </div>
-            </div>
-        </div>
+                <footer class="grid">
+                    <input type="button" value="Cancel" style="background-color: grey; border-color: lightgray;" onclick="closeAllModal()">
+                    <input type="submit" form="confirmDeleteForm" value="delete" id="delete" style="background-color: red; border-color: pink;">
+                </footer>
+            </article>
+        </dialog>
     </div>
 
     <script>
+        const idInput = document.getElementById("id");
+        const title = document.getElementById("depModalTitle");
+        const firstName = document.getElementById("f_name");
+        const lastName = document.getElementById("l_name");
+        const genderInput = document.getElementById("selectGender");
+        const birthInput = document.getElementById("birthday");
+
+        const userModal = document.getElementById("dependentModal");
+        const deleteModal = document.getElementById("doubleSureModal");
+
+        function closeAllModal() {
+            userModal.close();
+            deleteModal.close();
+        }
+
+        function makeSurePrompt() {
+            userModal.close();
+            setTimeout((e) => deleteModal.showModal(), 1);
+
+        }
         // make edit button trigger the modal
         Array.from(document.getElementsByClassName("edit-dependent")).forEach(b => {
             b.addEventListener("click", (e) => {
@@ -123,39 +139,39 @@
 
                         document.getElementById("editDependentForm").action = `/dependents/update/${d.id}`;
                         // change title to edit dependent
-                        document.getElementById("id").value = d.id;
-                        document.getElementById("depModalTitle").textContent = "Edit Dependent";
-                        document.getElementById("f_name").value = d.first_name;
-                        document.getElementById("l_name").value = d.last_name;
-                        document.getElementById("selectGender").value = d.gender;
-                        document.getElementById("birthday").value = d.birthday.split('T')[0];
+                        idInput.value = d.id;
+                        title.textContent = "Edit Dependent";
+                        firstName.value = d.first_name;
+                        lastName.value = d.last_name;
+                        genderInput.value = d.gender;
+                        birthInput.value = d.birthday.split('T')[0];
 
-                        const modal = new bootstrap.Modal(document.getElementById("dependentModal"));
-                        modal.show();
+
+                        userModal.showModal();
 
                     });
                 } else {
                     document.getElementById('editDependentForm').action = `/dependents/create/`;
 
                     // change title to edit dependent
-                    document.getElementById("id").value = "";
-                    document.getElementById("depModalTitle").textContent = "Add a family member:";
-                    document.getElementById("f_name").value = "";
-                    document.getElementById("l_name").value = "";
-                    document.getElementById("selectGender").value = "";
-                    document.getElementById("birthday").value = "";
+                    idInput.value = "";
+                    title.textContent = "Add a family member:";
+                    firstName.value = "";
+                    lastName.value = "";
+                    genderInput.value = "";
+                    birthInput.value = "";
 
-                    const modal = new bootstrap.Modal(document.getElementById("dependentModal"));
-                    modal.show();
+
+                    userModal.showModal();
                 }
             });
         });
 
         document.getElementById("deleteTriggerButton").addEventListener('click', e => {
-            const id = document.getElementById("id").value;
+            const id = idInput.value;
             const hiddenInput = document.getElementById('deleteId')
             hiddenInput.value = id;
-            console.log(hiddenInput);
+            deleteModal.close();
         })
     </script>
 
