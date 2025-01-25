@@ -1,22 +1,28 @@
-<section>
+<section id="userFeedback">
     <!-- error -->
     <% if (typeof error !=="undefined" ) { %>
-    <div class="red-color-pink-500" role="alert">
+    <div style="background-color: red;" role="alert">
         <%= error %>
     </div>
     <% } %>
 
     <!-- message -->
     <% if (typeof message !=="undefined" ) { %>
-    <div class="green-color-pink-500" role="alert">
+    <div style="background-color: green;" role="alert">
         <%= message %>
     </div>
     <% } %>
 
     <!-- User Warning -->
     <% if (typeof warning !=="undefined" ) { %>
-    <div class="yellow-color-pink-500" role="alert">
+    <div style="background-color: orange;" role="alert">
         <%= warning %>
     </div>
     <% } %>
+
+    <script>
+        setTimeout((handle) => {
+            document.getElementById('userFeedback').style.display = 'none';
+        }, 20 * 1000);
+    </script>
 </section>

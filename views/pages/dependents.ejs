@@ -28,7 +28,7 @@
                     <td><%= e.birthday %></td>
                     <td><%= e.gender %></td>
                     <td>
-                        <button class="btn btn-primary edit-dependent" data-id="<%= e.id %>">edit</button>
+                        <button class="edit-dependent" data-id="<%= e.id %>">edit</button>
                     </td>
                 </tr>
                 <% }) %>
@@ -129,8 +129,8 @@
         function makeSurePrompt() {
             userModal.close();
             setTimeout((e) => deleteModal.showModal(), 1);
-
         }
+
         // make edit button trigger the modal
         Array.from(document.getElementsByClassName("edit-dependent")).forEach(b => {
             b.addEventListener("click", (e) => {
@@ -146,7 +146,6 @@
                         genderInput.value = d.gender;
                         birthInput.value = d.birthday.split('T')[0];
 
-
                         userModal.showModal();
 
                     });
@@ -161,7 +160,6 @@
                     genderInput.value = "";
                     birthInput.value = "";
 
-
                     userModal.showModal();
                 }
             });
@@ -174,5 +172,4 @@
             deleteModal.close();
         })
     </script>
-
 </main>
