@@ -18,7 +18,7 @@ function creatingNewUser(req, res) {
   const f = req.body;
   let fb = { warning: "" };
   // check that both first and last name were filled.
-  if (f.f_name === "" && f.l_name == "") {
+  if (f.f_name === "" || f.l_name == "") {
     fb.warning += "\n Please Input a first and last name. ";
   }
   // check that email was filled.
@@ -26,7 +26,7 @@ function creatingNewUser(req, res) {
   if (f.email === "") {
     f.warning += "\n Please input an email.";
   }
-  if (isValidEmail(f.email) && !ev.validate(f.email)) {
+  if (!isValidEmail(f.email) || !ev.validate(f.email)) {
     fb.warning += "\n Your email is invalid ";
   }
 
@@ -35,9 +35,9 @@ function creatingNewUser(req, res) {
   // check that the phone number is filled.
   // check that the number has at min 10 digits.
   if (
-    f.phone_num === "" &&
-    f.phone_num.length < 10 &&
-    isPhoneNumber(f.phone_num)
+    f.phone_num === "" ||
+    f.phone_num.length < 10 ||
+    !isPhoneNumber(f.phone_num)
   ) {
     fb.warning += "\n Your phone number is invalid.";
   }
@@ -46,17 +46,21 @@ function creatingNewUser(req, res) {
   // Password must be at least 8 characters.
   // confirm password and password must match.
   if (
-    f.password === "" &&
-    f.password.length < 10 &&
-    f.password !== f.password_confirm
+    f.password === "" ||
+    f.password.length < 10
   ) {
-    fb.warning += "\n Your password is invalid";
+    fb.warning += "\n Your password length must exceed 10 alphanumerics. ";
+  }
+
+  if (f.password !== f.password_confirm) {
+    fb.warning += "\n Your password doesn't match the confirmation password."
   }
 
   // if errors, respond with feedback else write to DB.
   if (fb.warning !== "") {
     res.render("../views/pages/sign_up_page", fb);
   } else {
+
     bcrypt.hash(
       f.password,
       parseInt(process.env.SALT_ROUNDS),
@@ -96,7 +100,7 @@ function creatingNewUser(req, res) {
             return;
           }
 
-          res.render("index", { message: "You're account has been created. " });
+          res.render("../views/pages/sign_in_page", { message: "You're account has been created. " });
         }
       }
     );
