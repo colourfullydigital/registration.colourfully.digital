@@ -1,175 +1,179 @@
 <main>
-    <div class="container">
-        <h2>My family: </h2>
-        <div class="row">
-            <div class="col">
-                <p>Here is your list of children and dependent.</p>
-            </div>
-            <div class="col d-flex align-items-end justify-content-end ">
-                <input type="button" class="btn btn-primary edit-dependent" value="Add a member">
-            </div>
-        </div>
-        <table class="table table-striped table-dark">
-            <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Age</th>
-                    <th>Gender</th>
-                    <th>Modify</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% if ( dependents !== []) { %>
-                <% dependents.forEach(e => { %>
-                <tr>
-                    <td><%= e.first_name %></td>
-                    <td><%= e.last_name %></td>
-                    <td><%= e.birthday %></td>
-                    <td><%= e.gender %></td>
-                    <td>
-                        <button class="edit-dependent" data-id="<%= e.id %>">edit</button>
-                    </td>
-                </tr>
-                <% }) %>
-                <% } %>
-
-            </tbody>
-        </table>
-
-        <% if(Array.isArray(dependents) && dependents.length === 0) { %>
-        <div class="row">
-
-            <div class="col d-flex justify-content-center">
-                <p>You don't have any family member saved. Click 'add a member?' button</p>
-            </div>
-
-        </div>
+  <div class="container">
+    <h2>My family: </h2>
+    <div class="row">
+      <div class="col">
+        <p>Here is your list of children and dependent.</p>
+      </div>
+      <div class="col d-flex align-items-end justify-content-end ">
+        <input type="button" class="btn btn-primary edit-dependent" value="Add a member">
+      </div>
+    </div>
+    <table class="table table-striped table-dark">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th>Modify</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if ( dependents !== []) { %>
+        <% dependents.forEach(e => { %>
+        <tr>
+          <td><%= e.first_name %></td>
+          <td><%= e.last_name %></td>
+          <td><%= e.birthday %></td>
+          <td><%= e.gender %></td>
+          <td>
+            <button class="edit-dependent" data-id="<%= e.id %>">edit</button>
+          </td>
+        </tr>
+        <% }) %>
         <% } %>
 
-        <dialog id="dependentModal">
-            <article>
-                <header>
-                    <button aria-label="Close" rel="prev" onclick="closeAllModal()"></button>
-                    <h5 id="depModalTitle">Edit a dependent</h5>
-                </header>
-                <div class="modal-body">
-                    <form id="editDependentForm" method="post" action="">
-                        <input type="hidden" id="id" name="id">
-                        <div class="row">
-                            <div class="mb-3 col">
-                                <label for="f_name">First Name:</label>
-                                <input type="text" id="f_name" name="first_name" placeholder="John" required>
-                            </div>
-                            <div class="mb-3 col">
-                                <label for="l_name">Last Name:</label>
-                                <input type="text" id="l_name" name="last_name" placeholder="Doe" required>
-                            </div>
-                        </div>
-                        <div>
-                            <label for="birthday">Birthday:</label>
-                            <input type="date" id="birthday" name="birthday" required />
-                        </div>
-                        <div class="mb-3">
-                            <label for="gender">Gender: </label>
-                            <select class="form-select form-control" name="gender" id="selectGender" aria-label="Please choose an option" required name="gender">
-                                <!-- <option selected value="">--Please choose an option--</option> -->
-                                <option value="male">male</option>
-                                <option value="female">female</option>
-                                <option value="other">other</option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                <footer class="grid">
-                    <button type="button" style="background-color: grey; border-color: lightgray;" onclick="closeAllModal()">Cancel</button>
-                    <input type="button" style="background-color: red; border-color: pink;" value=" Delete" id="deleteTriggerButton" onclick="makeSurePrompt()">
-                    <input type="submit" form="editDependentForm" value="Save" />
-                </footer>
-            </article>
-        </dialog>
+      </tbody>
+    </table>
 
-
-        <dialog id="doubleSureModal">
-            <article>
-                <header class="modal-header">
-                    <button aria-label="Close" rel="prev" onclick="closeAllModal()"></button>
-                    <h5 id="depModalTitle">Confirm Deletion</h5>
-                </header>
-                <div class="modal-body">
-                    <form id="confirmDeleteForm" method="post" action="/dependents/delete/">
-                        <input type="hidden" id="deleteId" name="id">
-                        <p>Are you sure you want to delete family member?</p>
-                    </form>
-                </div>
-                <footer class="grid">
-                    <input type="button" value="Cancel" style="background-color: grey; border-color: lightgray;" onclick="closeAllModal()">
-                    <input type="submit" form="confirmDeleteForm" value="delete" id="delete" style="background-color: red; border-color: pink;">
-                </footer>
-            </article>
-        </dialog>
+    <% if(Array.isArray(dependents) && dependents.length === 0) { %>
+    <div class="row">
+      <div style="text-align: center;">
+        <p>You don't have any family member saved. Click 'add a member?' button</p>
+      </div>
     </div>
+    <% } %>
 
-    <script>
-        const idInput = document.getElementById("id");
-        const title = document.getElementById("depModalTitle");
-        const firstName = document.getElementById("f_name");
-        const lastName = document.getElementById("l_name");
-        const genderInput = document.getElementById("selectGender");
-        const birthInput = document.getElementById("birthday");
+    <dialog id="dependentModal">
+      <article>
+        <header>
+          <button aria-label="Close" rel="prev" onclick="closeAllModal()"></button>
+          <h5 id="depModalTitle">Edit a dependent</h5>
+        </header>
+        <div class="modal-body">
+          <form id="editDependentForm" method="post" action="">
+            <input type="hidden" id="id" name="id">
+            <div class="row">
+              <div class="mb-3 col">
+                <label for="f_name">First Name:</label>
+                <input type="text" id="f_name" name="first_name" placeholder="John" required>
+              </div>
+              <div class="mb-3 col">
+                <label for="l_name">Last Name:</label>
+                <input type="text" id="l_name" name="last_name" placeholder="Doe" required>
+              </div>
+            </div>
+            <div>
+              <label for="birthday">Birthday:</label>
+              <input type="date" id="birthday" name="birthday" required />
+            </div>
+            <div class="mb-3">
+              <label for="gender">Gender: </label>
+              <select class="form-select form-control" name="gender" id="selectGender" aria-label="Please choose an option" required name="gender">
+                <!-- <option selected value="">--Please choose an option--</option> -->
+                <option value="male">male</option>
+                <option value="female">female</option>
+                <option value="other">other</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <footer class="grid">
+          <button type="button" style="background-color: grey; border-color: lightgray;" onclick="closeAllModal()">Cancel</button>
+          <input type="button" style="background-color: red; border-color: pink;" value=" Delete" id="deleteTriggerButton" onclick="makeSurePrompt()">
+          <input type="submit" form="editDependentForm" value="Save" />
+        </footer>
+      </article>
+    </dialog>
 
-        const userModal = document.getElementById("dependentModal");
-        const deleteModal = document.getElementById("doubleSureModal");
 
-        function closeAllModal() {
-            userModal.close();
-            deleteModal.close();
+    <dialog id="doubleSureModal">
+      <article>
+        <header class="modal-header">
+          <button aria-label="Close" rel="prev" onclick="closeAllModal()"></button>
+          <h5 id="depModalTitle">Confirm Deletion</h5>
+        </header>
+        <div class="modal-body">
+          <form id="confirmDeleteForm" method="post" action="/dependents/delete/">
+            <input type="hidden" id="deleteId" name="id">
+            <p>Are you sure you want to delete family member?</p>
+          </form>
+        </div>
+        <footer class="grid">
+          <input type="button" value="Cancel" style="background-color: grey; border-color: lightgray;" onclick="closeAllModal()">
+          <input type="submit" form="confirmDeleteForm" value="delete" id="delete" style="background-color: red; border-color: pink;">
+        </footer>
+      </article>
+    </dialog>
+  </div>
+
+  <script>
+    const idInput = document.getElementById("id");
+    const title = document.getElementById("depModalTitle");
+    const firstName = document.getElementById("f_name");
+    const lastName = document.getElementById("l_name");
+    const genderInput = document.getElementById("selectGender");
+    const birthInput = document.getElementById("birthday");
+
+    const userModal = document.getElementById("dependentModal");
+    const deleteModal = document.getElementById("doubleSureModal");
+
+    const deleteTriggerButton = document.getElementById("deleteTriggerButton");
+
+    function closeAllModal() {
+      userModal.close();
+      deleteModal.close();
+    }
+
+    function makeSurePrompt() {
+      userModal.close();
+      setTimeout((e) => deleteModal.showModal(), 1);
+    }
+
+    // make edit button trigger the modal
+    Array.from(document.getElementsByClassName("edit-dependent")).forEach(b => {
+      b.addEventListener("click", (e) => {
+        if (b.dataset.id) {
+          fetch(`/dependents/edit/${b.dataset.id}`).then(j => j.json()).then(d => {
+
+            document.getElementById("editDependentForm").action = `/dependents/update/${d.id}`;
+            // change title to edit dependent
+            idInput.value = d.id;
+            title.textContent = "Edit Dependent";
+            firstName.value = d.first_name;
+            lastName.value = d.last_name;
+            genderInput.value = d.gender;
+            birthInput.value = d.birthday.split('T')[0];
+
+            deleteTriggerButton.style.display = 'inline-block';
+
+            userModal.showModal();
+
+          });
+        } else {
+          document.getElementById('editDependentForm').action = `/dependents/create/`;
+
+          // change title to edit dependent
+          idInput.value = "";
+          title.textContent = "Add a family member:";
+          firstName.value = "";
+          lastName.value = "";
+          genderInput.value = "";
+          birthInput.value = "";
+
+          deleteTriggerButton.style.display = 'none';
+
+          userModal.showModal();
         }
+      });
+    });
 
-        function makeSurePrompt() {
-            userModal.close();
-            setTimeout((e) => deleteModal.showModal(), 1);
-        }
-
-        // make edit button trigger the modal
-        Array.from(document.getElementsByClassName("edit-dependent")).forEach(b => {
-            b.addEventListener("click", (e) => {
-                if (b.dataset.id) {
-                    fetch(`/dependents/edit/${b.dataset.id}`).then(j => j.json()).then(d => {
-
-                        document.getElementById("editDependentForm").action = `/dependents/update/${d.id}`;
-                        // change title to edit dependent
-                        idInput.value = d.id;
-                        title.textContent = "Edit Dependent";
-                        firstName.value = d.first_name;
-                        lastName.value = d.last_name;
-                        genderInput.value = d.gender;
-                        birthInput.value = d.birthday.split('T')[0];
-
-                        userModal.showModal();
-
-                    });
-                } else {
-                    document.getElementById('editDependentForm').action = `/dependents/create/`;
-
-                    // change title to edit dependent
-                    idInput.value = "";
-                    title.textContent = "Add a family member:";
-                    firstName.value = "";
-                    lastName.value = "";
-                    genderInput.value = "";
-                    birthInput.value = "";
-
-                    userModal.showModal();
-                }
-            });
-        });
-
-        document.getElementById("deleteTriggerButton").addEventListener('click', e => {
-            const id = idInput.value;
-            const hiddenInput = document.getElementById('deleteId')
-            hiddenInput.value = id;
-            deleteModal.close();
-        })
-    </script>
+    deleteTriggerButton.addEventListener('click', e => {
+      const id = idInput.value;
+      const hiddenInput = document.getElementById('deleteId')
+      hiddenInput.value = id;
+      deleteModal.close();
+    })
+  </script>
 </main>
