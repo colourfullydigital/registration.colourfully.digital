@@ -115,7 +115,6 @@ async function getDependent(req, res) {
 async function getDependents(req, res) {
   // get the list of dependents and returns them to the user.
   let result = undefined;
-  let result1 = undefined;
 
   try {
     result = await pool.query(
@@ -129,9 +128,6 @@ async function getDependents(req, res) {
       [req.session.user]
     );
 
-    result1 = await pool.query(
-      `select first_name from users where id=${req.session.user};`
-    );
   } catch (e) {
     console.log(err);
     res.render("../views/pages/dependents", {
@@ -141,7 +137,6 @@ async function getDependents(req, res) {
   }
 
   const package = {
-    first_name: result1.rows[0].first_name,
     dependents: result.rows,
   };
   package.dependents.forEach((e) => (e.birthday = calculateAge(e.birthday)));

@@ -1,5 +1,5 @@
 
-function data(req, res, next) {
+function titleData(req, res, next) {
 
   const pathTail = req.path.replace("/", '').toLowerCase();
 
@@ -42,4 +42,16 @@ function data(req, res, next) {
   next();
 }
 
-module.exports = data;
+
+function navData(req, res, next) {
+  // Check if you're logged in. 
+  if (req.session.user) {
+    // Put logged in data to res. 
+    res.locals.isLoggedIn = true;
+  } else {
+    res.locals.isLoggedIn = false;
+  }
+  next();
+}
+
+module.exports = { titleData, navData };

@@ -4,7 +4,7 @@ const session = require("express-session");
 const expressLayouts = require("express-ejs-layouts");
 
 // Utilities
-const defaultData = require("./utils/defaultData");
+const { titleData, navData } = require("./utils/defaultData");
 
 // Routes
 const { auth, logOut } = require("./routes/authentication");
@@ -37,7 +37,8 @@ app.use(
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public")); // 'public' is the folder containing your css, js and other static files
-app.use(defaultData);
+app.use(titleData);
+app.use(navData);
 
 app.use(expressLayouts);
 app.set("layout", "layouts/default");
