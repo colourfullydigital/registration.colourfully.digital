@@ -1,11 +1,10 @@
 const express = require("express");
 const programs = express.Router();
 const { isAdminRole } = require("../utils/authMiddleware");
+const { getPrograms } = require("../controllers/programsController");
 
 programs.get("/", (req, res) => {
-  // if (isAdminRole(req)) console.log("user role:" + req.session.role);
-
-  res.render("../views/pages/programs");
+  getPrograms(req, res);
 });
 
 programs.get("/:id", (req, res) => {
