@@ -14,5 +14,5 @@ fi
 
 # Start node index.js in the background
 echo "Starting node app.js in the background..."
-node app.js &
+nohup node app.js > logs.log &!
 echo "Node app started in the background."
