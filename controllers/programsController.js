@@ -34,7 +34,9 @@ async function getPrograms(req, res) {
   let result = undefined;
   if (req.session.user && req.session.role === 'admin') {
     // If user is admin query for draft and other programs. 
-    query = 'select * from programs;'
+    query = `select 
+      id, name, description, capacity, num_registered, utc_start_date, location, status
+    from programs;`;
   } else {
     // If user is basic only get upcomming programs. 
     query = `select 
@@ -51,8 +53,15 @@ async function getPrograms(req, res) {
   }
 
   // Attach result to res and render program
+  res.locals.dashboard = [];
   if (result.rowCount > 0) {
     res.locals.dashboard = prepareDashboardData(result.rows);
+  }
+
+  if (req.session.user) {
+    res.locals.role = req.session.role;
+  } else {
+    res.locals.role = 'nothing';
   }
   res.render('../views/pages/programs')
 
