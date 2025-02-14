@@ -1,15 +1,15 @@
 const express = require("express");
 const programs = express.Router();
 const { isAdminRole } = require("../utils/authMiddleware");
-const { getPrograms } = require("../controllers/programsController");
+const { getPrograms, getProgram } = require("../controllers/programsController");
 
 programs.get("/", (req, res) => {
   getPrograms(req, res);
 });
 
 programs.get("/:id", (req, res) => {
-  console.log("get parems: " + req.params.id);
-  res.redirect("/");
+  console.log("Request reached. ")
+  getProgram(req, res);
 });
 
 programs.post("/create", isAdminRole, (req, res) => {

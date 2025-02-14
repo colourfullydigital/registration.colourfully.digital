@@ -67,11 +67,25 @@ async function getPrograms(req, res) {
 
 }
 
-// read/get a program
+// read/get a program for basic users
+async function getProgram(req, res) {
+  const id = req.params.id;
+  let result = undefined;
+
+  try {
+    const query = "select * from programs where id=$1;";
+    result = await pool.query(query, [id]);
+  } catch (e) {
+    console.log(e);
+  }
+
+  res.json(result.rows);
+}
+
 
 // create a program (admin only)
 // Update a program (admin only)
 // delete a program (admin only)
 
 
-module.exports = { getPrograms }
+module.exports = { getPrograms, getProgram }

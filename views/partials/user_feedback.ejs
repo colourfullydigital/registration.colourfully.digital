@@ -1,28 +1,29 @@
-<section id="userFeedback">
-    <!-- error -->
-    <% if (typeof error !=="undefined" ) { %>
-    <div style="background-color: red;" role="alert">
-        <%= error %>
-    </div>
-    <% } %>
+<!-- error -->
+<% if (typeof error !=="undefined" ) { %>
+<div style="background-color: red;" class="user_feedback">
+  <%= error %>
+</div>
+<% } %>
 
-    <!-- message -->
-    <% if (typeof message !=="undefined" ) { %>
-    <div style="background-color: green;" role="alert">
-        <%= message %>
-    </div>
-    <% } %>
+<!-- message -->
+<% if (typeof message !=="undefined" ) { %>
+<div style="background-color: green;" class="user_feedback">
+  <%= message %>
+</div>
+<% } %>
 
-    <!-- User Warning -->
-    <% if (typeof warning !=="undefined" ) { %>
-    <div style="background-color: orange;" role="alert">
-        <%= warning %>
-    </div>
-    <% } %>
+<!-- User Warning -->
+<% if (typeof warning !=="undefined" ) { %>
+<div style="background-color: orange;" class="user_feedback">
+  <%= warning %>
+</div>
+<% } %>
 
-    <script>
-        setTimeout((handle) => {
-            document.getElementById('userFeedback').style.display = 'none';
-        }, 20 * 1000);
-    </script>
-</section>
+<script>
+  setTimeout((handle) => {
+    Array.from(document.getElementsByClassName("user_feedback")).forEach(w => {
+      w.style.display = 'none';
+    });
+
+  }, 20 * 1000);
+</script>
