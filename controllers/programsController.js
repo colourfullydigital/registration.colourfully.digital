@@ -71,15 +71,48 @@ async function getPrograms(req, res) {
 async function getProgram(req, res) {
   const id = req.params.id;
   let result = undefined;
-
+  const output = {};
   try {
-    const query = "select * from programs where id=$1;";
+    const query = `select 
+      pro.id as id, org.name as org_name, pro.name, pro.description, pro.capacity, pro.num_registered, pro.utc_start_date, pro.utc_end_date, pro.location, users.first_name, pro.status, pro.utc_creation_time 
+    from 
+      programs as pro, organizations as org, users 
+    where 
+      pro.organization_id = org.id and pro.instructor_id=users.id and pro.id=$1;`;
     result = await pool.query(query, [id]);
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 
-  res.json(result.rows);
+  if (result.rowCount > 0) {
+    // console.log(result.rows[0])
+    output.program = result.rows[0];
+  }
+
+  try {
+    const query = "select name from organizations;"
+    result = await pool.query(query);
+  } catch (e) {
+    console.error(e);
+  }
+
+  if (result.rowCount > 0) {
+    output.organizations = result.rows;
+  }
+
+  try {
+    const query = "select first_name as name from users where role = 'admin';";
+    result = await pool.query(query);
+  } catch (e) {
+    console.error(e);
+  }
+
+  if (result.rowCount > 0) {
+    output.instructors = result.rows;
+  }
+
+  res.json(output);
+
 }
 
 
