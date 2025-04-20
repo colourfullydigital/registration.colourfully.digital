@@ -60,7 +60,7 @@
       <article style="max-width: 1000px; ">
         <header>
           <button aria-label="Close" rel="prev" onclick="closeAllModal()"></button>
-      <h2 id="createUpdateTitle">Create Event:</h2>
+          <h2 id="createUpdateTitle">Create Event:</h2>
         </header>
         <form id="createUpdateEventForm" method="POST">
           <input type="hidden" id="id" name="id">
@@ -121,8 +121,8 @@
           <label for="creation_datetime">Creation DateTime:</label>
           <input type="datetime-local" name="creation_datetime" id="creation_datetime">
 
-        <input type="submit" value="Subscribe" />
-      </form>
+          <input type="submit" value="Subscribe" />
+        </form>
       </article>
     </dialog>
 
@@ -131,37 +131,79 @@
 
   <script>
     const userDashboard = document.getElementById('dashbaordDisplay');
-    const createUpdateForm = document.getElementById('createUpdateEventForm')
+    const createUpdateModal = document.getElementById('createUpdateEventModal');
+
+    const title = document.getElementById("createUpdateTitle");
+
+    const name = document.getElementById('name');
+    const description = document.getElementById('description');
+    const capacity = document.getElementById('capacity');
+    const num_registered = document.getElementById('num_registered');
+    const start_datetime = document.getElementById('start_datetime');
+    const end_datetime = document.getElementById('end_datetime');
+    const place = document.getElementById('location');
+    const instructor = document.getElementById('instructor');
+    const status = document.getElementById('status');
+    const org_name = document.getElementById('org_name');
+    const creation_datetime = document.getElementById('creation_datetime');
 
     // save the values of the dashboard and form style display
     const ogDashboardDisplayValue = userDashboard.style.display;
-    const ogCreateUpdateFormDValue = createUpdateForm.style.display;
-
-    // start off with the form being hidden
-    createUpdateForm.style.display = 'none';
+    const ogCreateUpdateFormDValue = createUpdateModal.style.display;
 
     // When users press the "create new event" button or "edit" 
     Array.from(document.getElementsByClassName("edit-programs")).forEach(b => {
       b.addEventListener("click", (e) => {
         // Hid program dashboard and display the create form.
-        userDashboard.style.display = 'none';
-        createUpdateForm.style.display = ogCreateUpdateFormDValue;
+
         if (b.dataset.id) {
-          console.log("Editing an event. ")
-          fetch(`/dependents/edit/${b.dataset.id}`).then(j => j.json()).then(d => {
+          fetch(`/programs/${b.dataset.id}`).then(j => j.json()).then(d => {
 
             document.getElementById("createUpdateEventForm").action = `/programs/update/${d.id}`;
 
+            // idInput.value = d.id;
+            title.textContent = "Edit Event";
+
+
+            name.value = d.program.name;
+            description.value = d.program.description;
+            capacity.value = d.program.capacity;
+            num_registered.value = d.program.num_registered;
+            start_datetime.value = zuluToDatetimeLocal(d.program.utc_start_date);
+            end_datetime.value = zuluToDatetimeLocal(d.program.utc_end_date);
+            place.value = d.program.location;
+            // instructor.value = d.program.instructor;
+            addOptionsToSelect(instructor, d.instructors, d.program.first_name)
+            status.value = d.program.status;
+            addOptionsToSelect(org_name, d.organizations, d.program.org_name)
+            creation_datetime.value = zuluToDatetimeLocal(d.program.utc_creation_time);
+
+            // deleteTriggerButton.style.display = 'inline-block';
+
+
             console.log(d);
+            createUpdateModal.showModal();
 
           });
         } else {
           console.log("Creating a new Event");
-          document.getElementById('createUpdateEventForm').action = `/programs/create/`;
-
+          document.getElementById('createUpdateEventModal').action = `/programs/create/`;
         }
       });
     });
 
-    // Once the great form is closed, hid the form and display the dashboard (redirect to programs.)
+    function closeAllModal() {
+      createUpdateModal.close();
+    }
+
+    function addOptionsToSelect(select, listOfOptions, selected) {
+      console.log("testing reach")
+      for (let x = 0; x < listOfOptions.length; x++) {
+        let opt = new Option();
+        // opt.value = listOfOptions[x].name;
+        opt.innerHTML = listOfOptions[x].name;
+        opt.selected = listOfOptions[x].name == selected;
+        select.appendChild(opt);
+      }
+    }
   </script>
