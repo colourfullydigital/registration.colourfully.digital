@@ -56,23 +56,75 @@
     </div>
 
     <% if(role === 'admin'){ %>
-    <div id="createUpdateEventForm">
+    <dialog id="createUpdateEventModal">
+      <article style="max-width: 1000px; ">
+        <header>
+          <button aria-label="Close" rel="prev" onclick="closeAllModal()"></button>
       <h2 id="createUpdateTitle">Create Event:</h2>
-      <form>
-        <fieldset>
-          <label>
-            First name
-            <input name="first_name" placeholder="First name" autocomplete="given-name" />
-          </label>
-          <label>
-            Email
-            <input type="email" name="email" placeholder="Email" autocomplete="email" />
-          </label>
-        </fieldset>
+        </header>
+        <form id="createUpdateEventForm" method="POST">
+          <input type="hidden" id="id" name="id">
+
+          <!-- name -->
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name">
+          <!-- description -->
+          <label for="description">Description:</label>
+          <textarea id="description" name="description"> </textarea>
+
+          <div class="grid">
+            <!-- capacity -->
+            <div>
+              <label for="capacity">Capacity:</label>
+              <input type="number" id="capacity" name="capacity">
+            </div>
+            <!-- num_registered -->
+            <div>
+              <label for="num_registered">Number of Registered:</label>
+              <input type="number" id="num_registered" name="num_registered">
+            </div>
+          </div>
+
+          <div class="grid">
+            <div>
+              <!-- start datetime -->
+              <label for="start_datetime">Start Date & Time:</label>
+              <input type="datetime-local" id="start_datetime" name="start_datetime">
+            </div>
+            <div>
+              <!-- end datetime -->
+              <label for="end_datetime">End Date & Time:</label>
+              <input type="datetime-local" id="end_datetime" name="end_datetime">
+            </div>
+          </div>
+
+          <!-- location -->
+          <label for="location">Location:</label>
+          <input type="text" id="location" name="location">
+          <!-- instructor -->
+          <label for="instructor">Teacher:</label>
+          <select name="instructor" id="instructor"></select>
+          <!-- status -->
+          <label for="status">Status: </label>
+          <select name="status" id="status">
+            <option value="draft" name="draft">draft</option>
+            <option value="scheduled" name="scheduled">scheduled</option>
+            <option value="active" name="active">active</option>
+            <option value="completed" name="completed">completed</option>
+            <option value="postponed" name="postponed">postponed</option>
+            <option value="archived" name="archived">archived</option>
+          </select>
+          <!-- organization -->
+          <label for="org_name">Select organization:</label>
+          <select name="org_name" id="org_name"></select>
+          <!-- creation datetime -->
+          <label for="creation_datetime">Creation DateTime:</label>
+          <input type="datetime-local" name="creation_datetime" id="creation_datetime">
 
         <input type="submit" value="Subscribe" />
       </form>
-    </div>
+      </article>
+    </dialog>
 
     <% } %>
   </main>
