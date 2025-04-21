@@ -140,6 +140,8 @@
 
     const title = document.getElementById("createUpdateTitle");
 
+
+    const idInput = document.getElementById('id');
     const name = document.getElementById('name');
     const description = document.getElementById('description');
     const capacity = document.getElementById('capacity');
@@ -166,7 +168,7 @@
 
             createUpdateForm.action = `/programs/update/${d.id}`;
 
-            // idInput.value = d.id;
+            idInput.value = d.program.id;
             title.textContent = "Edit Event";
 
 
