@@ -136,6 +136,7 @@
   <script>
     const userDashboard = document.getElementById('dashbaordDisplay');
     const createUpdateModal = document.getElementById('createUpdateEventModal');
+    const createUpdateForm = document.getElementById("createUpdateEventForm");
 
     const title = document.getElementById("createUpdateTitle");
 
@@ -163,7 +164,7 @@
         if (b.dataset.id) {
           fetch(`/programs/${b.dataset.id}`).then(j => j.json()).then(d => {
 
-            document.getElementById("createUpdateEventForm").action = `/programs/update/${d.id}`;
+            createUpdateForm.action = `/programs/update/${d.id}`;
 
             // idInput.value = d.id;
             title.textContent = "Edit Event";
@@ -202,6 +203,9 @@
 
     function addOptionsToSelect(select, listOfOptions, selected) {
       console.log("testing reach")
+      while (select.firstChild) {
+        select.removeChild(select.lastChild);
+      }
       for (let x = 0; x < listOfOptions.length; x++) {
         let opt = new Option();
         // opt.value = listOfOptions[x].name;
