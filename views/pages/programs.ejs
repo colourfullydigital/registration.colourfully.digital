@@ -121,7 +121,11 @@
           <label for="creation_datetime">Creation DateTime:</label>
           <input type="datetime-local" name="creation_datetime" id="creation_datetime">
 
-          <input type="submit" value="Subscribe" />
+          <footer class="grid">
+            <button type="button" style="background-color: grey; border-color: lightgray;" onclick="closeAllModal()">Cancel</button>
+            <input type="button" style="background-color: red; border-color: pink;" value=" Delete" id="deleteTriggerButton" onclick="makeSurePrompt()">
+            <input type="submit" form="createUpdateEventForm" value="Save" />
+          </footer>
         </form>
       </article>
     </dialog>
