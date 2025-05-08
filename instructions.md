@@ -6,7 +6,7 @@ We are building an MVP designed to streamline the management of workshops, camps
 - **Frontend**: Remix with App Router
 - **UI Framework**: Tailwind CSS with ShadCN components
 - **Database and Backend**: Supabase (PostgreSQL)
-- **Authentication**: Clerk
+- **Authentication**: Supabase Auth
 - **Communications**: Twilio
 - **Styling**: Tailwind CSS with ShadCN/UI components
 
@@ -228,7 +228,7 @@ type DashboardMetrics = {
 // pages/api structure
 export default {
   auth: {
-    '[...clerk]': ClerkHandler,
+
     'webhook': WebhookHandler
   },
   programs: {
@@ -249,21 +249,6 @@ export default {
 ```
 
 ## Integration Configurations
-
-### Clerk Setup
-```typescript
-// middleware.ts
-import { authMiddleware } from "@clerk/nextjs";
- 
-export default authMiddleware({
-  publicRoutes: ["/", "/api/webhook"],
-  ignoredRoutes: ["/api/public"]
-});
- 
-export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
-};
-```
 
 ### Supabase Client
 ```typescript
@@ -286,5 +271,3 @@ const authToken = process.env.TWILIO_AUTH_TOKEN!;
 
 export const twilioClient = twilio(accountSid, authToken);
 ```
-
-# Current file structure
