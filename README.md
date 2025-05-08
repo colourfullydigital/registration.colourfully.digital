@@ -7,18 +7,17 @@ A modern platform for managing STEM educational events including workshops, camp
 ### Prerequisites
 
 - Node.js 18.17 or later
-- pnpm 8.x
+- npm 18.x or later
 - PostgreSQL 14 or later (via Supabase)
 - Supabase account
-- Clerk account
 - Twilio account
 
 ### Environment Setup
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-org/stem-education-platform.git
-cd stem-education-platform
+git clone https://github.com/colourfully-digital/registration.colourfully.digital.git
+cd registration.colourfully.digital
 ```
 
 2. Install dependencies:
@@ -35,10 +34,6 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
-
-# Clerk
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
-CLERK_SECRET_KEY=your_clerk_secret_key
 
 # Twilio
 TWILIO_ACCOUNT_SID=your_twilio_account_sid
@@ -79,7 +74,7 @@ registration.colourfully.digital/
 
 - **Framework**: Remix with App Router
 - **Database**: Supabase (PostgreSQL)
-- **Authentication**: Clerk
+- **Authentication**: Supabasr Auth
 - **UI Components**: shadcn/ui
 - **Styling**: Tailwind CSS
 - **Communications**: Twilio
