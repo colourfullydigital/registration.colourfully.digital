@@ -7,7 +7,7 @@ A modern platform for managing STEM educational events including workshops, camp
 ### Prerequisites
 
 - Node.js 18.17 or later
-- npm 18.x or later
+- npm 11.3.x or later
 - PostgreSQL 14 or later (via Supabase)
 - Supabase account
 - Twilio account
