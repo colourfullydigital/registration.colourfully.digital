@@ -195,6 +195,28 @@
         } else {
           console.log("Creating a new Event");
           document.getElementById('createUpdateEventModal').action = `/programs/create/`;
+
+          fetch(`/programs/-1`).then(j => j.json()).then(d => {
+
+            console.log("Creating a new Event");
+            createUpdateForm.action = `/programs/create/`;
+
+            idInput.value = "";
+            title.textContent = "Create Event";
+
+            name.value = "";
+            description.value = "";
+            capacity.value = 10;
+            num_registered.value = 0;
+            start_datetime.value = zuluToDatetimeLocal(new Date());
+            end_datetime.value = zuluToDatetimeLocal(new Date());
+            place.value = "";
+            addOptionsToSelect(instructor, d.instructors, "")
+            addOptionsToSelect(org_name, d.organizations, "")
+            creation_datetime.value = zuluToDatetimeLocal(new Date());
+
+            createUpdateModal.showModal();
+          })
         }
       });
     });
