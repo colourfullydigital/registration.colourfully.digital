@@ -187,14 +187,10 @@
 
             // deleteTriggerButton.style.display = 'inline-block';
 
-
-            console.log(d);
             createUpdateModal.showModal();
 
           });
         } else {
-          console.log("Creating a new Event");
-          document.getElementById('createUpdateEventModal').action = `/programs/create/`;
 
           fetch(`/programs/-1`).then(j => j.json()).then(d => {
 
