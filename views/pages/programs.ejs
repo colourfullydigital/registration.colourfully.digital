@@ -67,7 +67,7 @@
 
           <!-- name -->
           <label for="name">Name:</label>
-          <input type="text" id="name" name="name">
+          <input type="text" id="name" name="name" required>
           <!-- description -->
           <label for="description">Description:</label>
           <textarea id="description" name="description"> </textarea>
@@ -76,12 +76,12 @@
             <!-- capacity -->
             <div>
               <label for="capacity">Capacity:</label>
-              <input type="number" id="capacity" name="capacity">
+              <input type="number" id="capacity" name="capacity" required>
             </div>
             <!-- num_registered -->
             <div>
               <label for="num_registered">Number of Registered:</label>
-              <input type="number" id="num_registered" name="num_registered">
+              <input type="number" id="num_registered" name="num_registered" required>
             </div>
           </div>
 
@@ -89,24 +89,24 @@
             <div>
               <!-- start datetime -->
               <label for="start_datetime">Start Date & Time:</label>
-              <input type="datetime-local" id="start_datetime" name="start_datetime">
+              <input type="datetime-local" id="start_datetime" name="start_datetime" required>
             </div>
             <div>
               <!-- end datetime -->
               <label for="end_datetime">End Date & Time:</label>
-              <input type="datetime-local" id="end_datetime" name="end_datetime">
+              <input type="datetime-local" id="end_datetime" name="end_datetime" required>
             </div>
           </div>
 
           <!-- location -->
           <label for="location">Location:</label>
-          <input type="text" id="location" name="location">
+          <input type="text" id="location" name="location" required>
           <!-- instructor -->
           <label for="instructor">Teacher:</label>
           <select name="instructor" id="instructor"></select>
           <!-- status -->
           <label for="status">Status: </label>
-          <select name="status" id="status">
+          <select name="status" id="status" required>
             <option value="draft" name="draft">draft</option>
             <option value="scheduled" name="scheduled">scheduled</option>
             <option value="active" name="active">active</option>
@@ -119,7 +119,7 @@
           <select name="org_name" id="org_name"></select>
           <!-- creation datetime -->
           <label for="creation_datetime">Creation DateTime:</label>
-          <input type="datetime-local" name="creation_datetime" id="creation_datetime">
+          <input type="datetime-local" name="creation_datetime" id="creation_datetime" required>
 
           <footer class="grid">
             <button type="button" style="background-color: grey; border-color: lightgray;" onclick="closeAllModal()">Cancel</button>
