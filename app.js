@@ -35,7 +35,8 @@ app.use(
   })
 );
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json())
 app.use(express.static("public")); // 'public' is the folder containing your css, js and other static files
 app.use(titleData);
 app.use(navData);

@@ -25,6 +25,21 @@ function prepareDashboardData(list) {
 
   return list;
 }
+//TODO: Impliment validation for Program
+/* Rules for a program to be created. 
+ *  - start datetime must be in the future. 
+    - end datetime must be later the start
+    - Capacity must be great than zero
+    - No fields should be empty except org
+ */
+function validateProgramUserInput(program) {
+  const result = { success: false, reason: "" };
+
+  result.success = true;
+  result.reason = "Testing fake validation";
+
+  return result;
+}
 
 
 // read/get programs (access to all. )programs
@@ -90,7 +105,7 @@ async function getProgram(req, res) {
   }
 
   try {
-    const query = "select name from organizations;"
+    const query = "select id, name from organizations;"
     result = await pool.query(query);
   } catch (e) {
     console.error(e);
@@ -101,7 +116,7 @@ async function getProgram(req, res) {
   }
 
   try {
-    const query = "select first_name as name from users where role = 'admin';";
+    const query = "select id, first_name as name from users where role = 'admin';";
     result = await pool.query(query);
   } catch (e) {
     console.error(e);
@@ -118,7 +133,43 @@ async function getProgram(req, res) {
 
 // create a program (admin only)
 // Update a program (admin only)
+async function updateProgram(req, res) {
+  let np = req.body;
+  let validation = validateProgramUserInput(np);
+
+  if (validation.success) {
+    // write to the DB;
+    let result = undefined;
+    try {
+      const query = `
+      update programs set 
+       name = $1, 
+       description = $2, 
+       capacity = $3, 
+       num_registered = $4, 
+       utc_start_date = $5, 
+       utc_end_date = $6, 
+       location = $7, 
+       instructor_id = $8, 
+       status = $9, 
+       utc_creation_time = $10,
+       organization_id = $11
+      where 
+       id = $12;`;
+      let qlist = [np.name, np.description, np.capacity, np.num_registered, np.start_datetime, np.end_datetime, np.location, np.instructor, np.status, np.creation_datetime, np.org_name, np.id];
+      result = pool.query(query, qlist);
+    } catch (e) {
+      console.log("Error: 238928372. Could not update program", np.id);
+      console.log(e);
+    }
+    res.json(validation);
+  } else {
+    // Else failure
+    res.json(validation);
+  }
+
+}
 // delete a program (admin only)
 
 
-module.exports = { getPrograms, getProgram }
+module.exports = { getPrograms, getProgram, updateProgram }

@@ -222,16 +222,34 @@
     }
 
     function addOptionsToSelect(select, listOfOptions, selected) {
-      console.log("testing reach")
       while (select.firstChild) {
         select.removeChild(select.lastChild);
       }
       for (let x = 0; x < listOfOptions.length; x++) {
         let opt = new Option();
-        // opt.value = listOfOptions[x].name;
+        opt.value = listOfOptions[x].id;
         opt.innerHTML = listOfOptions[x].name;
         opt.selected = listOfOptions[x].name == selected;
         select.appendChild(opt);
       }
     }
+
+    // If ther user makes a mistake, don't change the page but warn them change the page. 
+    createUpdateForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      let data = {};
+      new FormData(createUpdateForm).forEach((v, k) => data[k] = v);
+
+      const type = data.id === "" ? "/programs/create" : "/programs/update";
+
+      let r = await fetch(type, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      console.log(r);
+    })
   </script>

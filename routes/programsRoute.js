@@ -1,7 +1,9 @@
 const express = require("express");
 const programs = express.Router();
 const { isAdminRole } = require("../utils/authMiddleware");
-const { getPrograms, getProgram } = require("../controllers/programsController");
+const { getPrograms, getProgram, updateProgram } = require("../controllers/programsController");
+
+// programs.use(express.json());
 
 programs.get("/", (req, res) => {
   getPrograms(req, res);
