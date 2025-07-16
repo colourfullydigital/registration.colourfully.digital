@@ -19,9 +19,15 @@ programs.post("/create", isAdminRole, (req, res) => {
   res.redirect("/");
 });
 
-programs.post("/update/:id", isAdminRole, (req, res) => {
+programs.post("/update", isAdminRole, (req, res) => {
+  console.log("=========================updating program===========");
+  console.log("-------------------------body-----------------------");
   console.log(req.body);
-  res.redirect("/");
+  console.log("----------------------------------------------------");
+
+  updateProgram(req, res);
+
+  // res.redirect("/");
 });
 
 programs.delete("/delete/:id", isAdminRole, (req, res) => {
