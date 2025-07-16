@@ -67,6 +67,11 @@
 
       return `${year}-${month}-${day}T${hours}:${minutes}`;
     }
+
+    function toISOStringDateTime(localTime) {
+      const date = new Date(localTime);
+      return date.toISOString();
+    }
   </script>
 
 </head>

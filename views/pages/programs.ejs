@@ -241,6 +241,8 @@
       new FormData(createUpdateForm).forEach((v, k) => data[k] = v);
 
       const type = data.id === "" ? "/programs/create" : "/programs/update";
+      data.start_datetime = toISOStringDateTime(data.start_datetime);
+      data.end_datetime = toISOStringDateTime(data.end_datetime);
 
       let r = await fetch(type, {
         method: "POST",
