@@ -252,6 +252,12 @@
         body: JSON.stringify(data)
       });
 
-      console.log(r);
+      console.log("result of post:", r);
+      if (r.ok) {
+        // Post passed validation, close modal and update card with correct details. 
+        window.location.reload();
+      } else {
+        alert("There are errors on this page. Please double check before you submit");
+      }
     })
   </script>
