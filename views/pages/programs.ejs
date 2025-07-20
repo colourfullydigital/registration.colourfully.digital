@@ -131,11 +131,33 @@
     </dialog>
 
     <% } %>
+
+
+    <dialog id="doubleSureModal">
+      <article>
+        <header class="modal-header">
+          <button aria-label="Close" rel="prev" onclick="closeAllModal()"></button>
+          <h5 id="depModalTitle">Confirm Deletion</h5>
+        </header>
+        <div class="modal-body">
+          <form id="confirmDeleteForm" method="post" action="/programs/delete/">
+            <input type="hidden" id="deleteId" name="id">
+            <p>Are you sure you want to delete event?</p>
+          </form>
+        </div>
+        <footer class="grid">
+          <input type="button" value="Cancel" style="background-color: grey; border-color: lightgray;" onclick="closeAllModal()">
+          <input type="submit" form="confirmDeleteForm" value="delete" id="delete" style="background-color: red; border-color: pink;">
+        </footer>
+      </article>
+    </dialog>
+    </div>
   </main>
 
   <script>
     const userDashboard = document.getElementById('dashbaordDisplay');
     const createUpdateModal = document.getElementById('createUpdateEventModal');
+    const deleteModal = document.getElementById('doubleSureModal');
     const createUpdateForm = document.getElementById("createUpdateEventForm");
 
     const title = document.getElementById("createUpdateTitle");
@@ -228,6 +250,11 @@
       createUpdateModal.close();
     }
 
+    function makeSurePrompt() {
+      createUpdateModal.close();
+      setTimeout((e) => deleteModal.showModal(), 1);
+    }
+
     function addOptionsToSelect(select, listOfOptions, selected) {
       while (select.firstChild) {
         select.removeChild(select.lastChild);
@@ -266,5 +293,12 @@
       } else {
         alert("There are errors on this page. Please double check before you submit");
       }
+    })
+
+    deleteTriggerButton.addEventListener('click', e => {
+      const id = idInput.value;
+      const hiddenInput = document.getElementById('deleteId')
+      hiddenInput.value = id;
+      deleteModal.close();
     })
   </script>

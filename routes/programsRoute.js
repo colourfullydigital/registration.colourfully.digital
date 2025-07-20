@@ -33,9 +33,9 @@ programs.post("/update", isAdminRole, (req, res) => {
   // res.redirect("/");
 });
 
-programs.delete("/delete/:id", isAdminRole, (req, res) => {
-  console.log("delete parems: " + req.params.id);
-  res.redirect("/");
+programs.post("/delete", isAdminRole, (req, res) => {
+  console.log("delete parems: ", req.body);
+  res.redirect("/programs");
 });
 
 module.exports = programs;
