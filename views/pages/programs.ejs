@@ -140,6 +140,8 @@
 
     const title = document.getElementById("createUpdateTitle");
 
+    const deleteTriggerButton = document.getElementById("deleteTriggerButton");
+
 
     const idInput = document.getElementById('id');
     const name = document.getElementById('name');
@@ -166,6 +168,9 @@
         if (b.dataset.id) {
           fetch(`/programs/${b.dataset.id}`).then(j => j.json()).then(d => {
 
+            console.log("------------program data returned from DB-------------");
+            console.log(d);
+
             createUpdateForm.action = `/programs/update/${d.id}`;
 
             idInput.value = d.program.id;
@@ -185,7 +190,7 @@
             addOptionsToSelect(org_name, d.organizations, d.program.org_name)
             creation_datetime.value = zuluToDatetimeLocal(d.program.utc_creation_time);
 
-            // deleteTriggerButton.style.display = 'inline-block';
+            deleteTriggerButton.style.display = 'inline-block';
 
             createUpdateModal.showModal();
 
@@ -210,6 +215,8 @@
             addOptionsToSelect(instructor, d.instructors, "")
             addOptionsToSelect(org_name, d.organizations, "")
             creation_datetime.value = zuluToDatetimeLocal(new Date());
+
+            deleteTriggerButton.style.display = 'none';
 
             createUpdateModal.showModal();
           })
