@@ -1,7 +1,7 @@
 const express = require("express");
 const programs = express.Router();
 const { isAdminRole } = require("../utils/authMiddleware");
-const { getPrograms, getProgram, updateProgram } = require("../controllers/programsController");
+const { getPrograms, getProgram, updateProgram, createProgram } = require("../controllers/programsController");
 
 // programs.use(express.json());
 
@@ -15,8 +15,11 @@ programs.get("/:id", (req, res) => {
 });
 
 programs.post("/create", isAdminRole, (req, res) => {
+  console.log("======================creating program==============");
   console.log(req.body);
-  res.redirect("/");
+
+  createProgram(req, res);
+
 });
 
 programs.post("/update", isAdminRole, (req, res) => {

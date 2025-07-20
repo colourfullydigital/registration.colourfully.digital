@@ -132,6 +132,36 @@ async function getProgram(req, res) {
 
 
 // create a program (admin only)
+async function createProgram(req, res) {
+  // Validate the request
+  const np = req.body;
+  const validation = validateProgramUserInput(np);
+  if (validation.success) {
+    // Create the program
+    let result = undefined;
+    try {
+      const query = `
+      INSERT INTO PROGRAMS 
+        (name, description, capacity, num_registered, utc_start_date, utc_end_date, location, instructor_id, status, utc_creation_time, organization_id)
+      VALUES 
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);
+      `;
+      const qlist = [np.name, np.description, np.capacity, np.num_registered, np.start_datetime, np.end_datetime, np.location, np.instructor, np.status, np.creation_datetime, np.org_name]
+
+      result = pool.query(query, qlist);
+    } catch (err) {
+      console.log("Error: 8273874982738. Could not create program", np.id);
+      console.log(err);
+    }
+    // Send errors message back
+    res.json(validation);
+  } else {
+    // Error in validation send it back. 
+    res.json(validation);
+  }
+
+}
+
 // Update a program (admin only)
 async function updateProgram(req, res) {
   let np = req.body;
@@ -172,4 +202,4 @@ async function updateProgram(req, res) {
 // delete a program (admin only)
 
 
-module.exports = { getPrograms, getProgram, updateProgram }
+module.exports = { getPrograms, getProgram, updateProgram, createProgram }
