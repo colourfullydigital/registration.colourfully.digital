@@ -78,7 +78,7 @@ async function getPrograms(req, res) {
   } else {
     res.locals.role = 'nothing';
   }
-  res.render('../views/pages/programs')
+  res.render('../views/pages/programs');
 
 }
 
@@ -199,7 +199,25 @@ async function updateProgram(req, res) {
   }
 
 }
+
 // delete a program (admin only)
+async function deleteProgram(req, res) {
+  // Delete the programs. 
+  let result = undefined;
+  try {
+    const query = `delete from programs where id = $1;`;
+    const qlist = [req.body.id];
+
+    result = await pool.query(query, qlist);
+  } catch (err) {
+    console.log("Error: 82056193. Could not delete a program event. ", req.body.id, err);
+  }
 
 
-module.exports = { getPrograms, getProgram, updateProgram, createProgram }
+  // res.render('../views/pages/programs');
+  // getPrograms(req, res);
+  res.redirect("/programs")
+
+}
+
+module.exports = { getPrograms, getProgram, updateProgram, createProgram, deleteProgram };

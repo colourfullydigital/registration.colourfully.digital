@@ -1,7 +1,7 @@
 const express = require("express");
 const programs = express.Router();
 const { isAdminRole } = require("../utils/authMiddleware");
-const { getPrograms, getProgram, updateProgram, createProgram } = require("../controllers/programsController");
+const { getPrograms, getProgram, updateProgram, createProgram, deleteProgram } = require("../controllers/programsController");
 
 // programs.use(express.json());
 
@@ -35,7 +35,7 @@ programs.post("/update", isAdminRole, (req, res) => {
 
 programs.post("/delete", isAdminRole, (req, res) => {
   console.log("delete parems: ", req.body);
-  res.redirect("/programs");
+  deleteProgram(req, res);
 });
 
 module.exports = programs;
