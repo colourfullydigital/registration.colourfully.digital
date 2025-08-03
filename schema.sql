@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.6 (Ubuntu 16.6-0ubuntu0.24.04.1)
--- Dumped by pg_dump version 16.6 (Ubuntu 16.6-0ubuntu0.24.04.1)
+-- Dumped from database version 16.9 (Ubuntu 16.9-0ubuntu0.24.04.1)
+-- Dumped by pg_dump version 16.9 (Ubuntu 16.9-0ubuntu0.24.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -75,23 +75,6 @@ $$;
 
 
 ALTER FUNCTION public.check_instructor_role() OWNER TO postgres;
-
---
--- Name: create_user(character varying, character varying, character varying, character varying, public.user_role, character varying); Type: FUNCTION; Schema: public; Owner: postgres
---
-
-CREATE FUNCTION public.create_user(a_name character varying, a_email character varying, a_phone character varying, a_pref_moc character varying, a_role public.user_role, a_hashed_pword character varying) RETURNS void
-    LANGUAGE plpgsql
-    AS $$
-declare new_user_id int; 
-begin
-insert into users (name, email, phone_number, preferred_method_of_contact, role)
-values (a_name, a_email, a_phone, a_pref_moc, a_role) returning id into new_user_id;
-insert into login_information (user_id , hashed_password) values (new_user_id, a_hashed_pword);
-END; $$;
-
-
-ALTER FUNCTION public.create_user(a_name character varying, a_email character varying, a_phone character varying, a_pref_moc character varying, a_role public.user_role, a_hashed_pword character varying) OWNER TO postgres;
 
 --
 -- Name: create_user(character varying, character varying, character varying, character varying, character varying, public.user_role, character varying); Type: FUNCTION; Schema: public; Owner: postgres
@@ -269,6 +252,42 @@ ALTER SEQUENCE public.programs_id_seq OWNED BY public.programs.id;
 
 
 --
+-- Name: registration; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.registration (
+    id integer NOT NULL,
+    student_id integer NOT NULL,
+    programs_fk integer NOT NULL,
+    creation_time timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.registration OWNER TO postgres;
+
+--
+-- Name: registration_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.registration_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.registration_id_seq OWNER TO postgres;
+
+--
+-- Name: registration_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.registration_id_seq OWNED BY public.registration.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -336,6 +355,13 @@ ALTER TABLE ONLY public.programs ALTER COLUMN id SET DEFAULT nextval('public.pro
 
 
 --
+-- Name: registration id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.registration ALTER COLUMN id SET DEFAULT nextval('public.registration_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -372,6 +398,22 @@ ALTER TABLE ONLY public.organizations
 
 ALTER TABLE ONLY public.programs
     ADD CONSTRAINT programs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: registration registration_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.registration
+    ADD CONSTRAINT registration_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: registration registration_student_id_programs_fk_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.registration
+    ADD CONSTRAINT registration_student_id_programs_fk_key UNIQUE (student_id, programs_fk);
 
 
 --
@@ -427,6 +469,22 @@ ALTER TABLE ONLY public.programs
 
 ALTER TABLE ONLY public.programs
     ADD CONSTRAINT programs_organization_id_fkey FOREIGN KEY (organization_id) REFERENCES public.organizations(id);
+
+
+--
+-- Name: registration registration_programs_fk_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.registration
+    ADD CONSTRAINT registration_programs_fk_fkey FOREIGN KEY (programs_fk) REFERENCES public.programs(id) ON DELETE CASCADE;
+
+
+--
+-- Name: registration registration_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.registration
+    ADD CONSTRAINT registration_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.dependents(id) ON DELETE CASCADE;
 
 
 --
