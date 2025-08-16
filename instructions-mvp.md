@@ -3,10 +3,10 @@ We are building an MVP designed to streamline the management of workshops, camps
 
 ## Tech Stack
 
-- **Frontend**: Remix with App Router
+- **Frontend**: TanStack
 - **UI Framework**: Tailwind CSS with ShadCN components
-- **Database and Backend**: Supabase (PostgreSQL)
-- **Authentication**: Clerk
+- **Database and Backend**: Convex
+- **Authentication**: Convex
 - **Communications**: Twilio
 - **Styling**: Tailwind CSS with ShadCN/UI components
 
@@ -225,55 +225,56 @@ type DashboardMetrics = {
 
 ## API Routes Structure
 ```typescript
-// pages/api structure
+// convex/ folder structure
 export default {
   auth: {
-    '[...clerk]': ClerkHandler,
-    'webhook': WebhookHandler
+    'signIn': 'mutation',
+    'signUp': 'mutation',
+    'getCurrentUser': 'query'
   },
   programs: {
-    'index': ProgramHandler,
-    '[id]': ProgramDetailHandler,
-    'create': ProgramCreateHandler
+    'list': 'query',
+    'get': 'query',
+    'create': 'mutation'
   },
   registrations: {
-    'create': RegistrationCreateHandler,
-    '[id]': RegistrationDetailHandler,
-    'webhook': PaymentWebhookHandler
+    'create': 'mutation',
+    'get': 'query',
+    'handlePayment': 'action'
   },
   communications: {
-    'email': EmailHandler,
-    'sms': SMSHandler
+    'sendEmail': 'action',
+    'sendSms': 'action'
   }
 };
 ```
 
 ## Integration Configurations
 
-### Clerk Setup
+### Convex Setup
 ```typescript
-// middleware.ts
-import { authMiddleware } from "@clerk/nextjs";
- 
-export default authMiddleware({
-  publicRoutes: ["/", "/api/webhook"],
-  ignoredRoutes: ["/api/public"]
-});
- 
-export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
-};
-```
+// lib/convex.ts
+import { ConvexReactClient } from "convex/react";
 
-### Supabase Client
-```typescript
-// lib/supabase.ts
-import { createClient } from '@supabase/supabase-js';
+const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+export default convex;
 
-export const supabase = createClient(supabaseUrl, supabaseKey);
+// app/layout.tsx
+"use client";
+import { ConvexProvider, ConvexReactClient } from "convex/react";
+
+const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <ConvexProvider client={convex}>{children}</ConvexProvider>
+      </body>
+    </html>
+  );
+}
 ```
 
 ### Twilio Configuration

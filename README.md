@@ -1,200 +1,110 @@
-# Registration portal for Colourfully Digital Foundation
+# Registration Portal for Colourfully Digital Foundation
 
-A modern platform for managing STEM educational events including workshops, camps, and classes. Built with Next.js 15, Supabase, and Clerk.
+This is a web application for managing educational programs, including user registration, dependent management, and program listings. It is built with Node.js, Express, and PostgreSQL.
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-- Node.js 18.17 or later
-- pnpm 8.x
-- PostgreSQL 14 or later (via Supabase)
-- Supabase account
-- Clerk account
-- Twilio account
+- Node.js (v14 or later recommended)
+- PostgreSQL
 
 ### Environment Setup
 
-1. Clone the repository:
-```bash
-git clone https://github.com/your-org/stem-education-platform.git
-cd stem-education-platform
-```
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/Colourfully-Digital/registration.colourfully.digital.git
+    cd registration.colourfully.digital
+    ```
 
-2. Install dependencies:
-```bash
-pnpm install
-```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-3. Create a `.env.local` file in the root directory:
-```env
-# App
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+3.  **Set up the Database:**
+    - Make sure you have PostgreSQL installed and running.
+    - Create a new database.
+    - Connect to your new database and run the schema script to create the necessary tables and functions:
+      ```bash
+      psql -U your_username -d your_database_name -f schema.sql
+      ```
 
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+4.  **Create a `.env` file:**
+    Create a `.env` file in the root of the project and add your database connection details and a session secret:
+    ```env
+    DB_USER=your_postgres_user
+    DB_HOST=localhost
+    DB_DATABASE=your_database_name
+    DB_PASSWORD=your_postgres_password
+    DB_PORT=5432
+    SESSION_SECRET=a_strong_secret_string_for_sessions
+    ```
 
-# Clerk
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
-CLERK_SECRET_KEY=your_clerk_secret_key
-
-# Twilio
-TWILIO_ACCOUNT_SID=your_twilio_account_sid
-TWILIO_AUTH_TOKEN=your_twilio_auth_token
-TWILIO_PHONE_NUMBER=your_twilio_phone_number
-```
-
-4. Initialize the database:
-```bash
-pnpm db:migrate
-```
-
-5. Start the development server:
-```bash
-pnpm dev
-```
-
-Visit `http://localhost:3000` to see the application.
+5.  **Start the application:**
+    You can start the server directly using Node:
+    ```bash
+    node app.js
+    ```
+    Alternatively, you can use the provided restart script, which runs the application in the background using `nohup`:
+    ```bash
+    ./my_restart_script.sh
+    ```
+    The application will be running on `http://localhost:3000` (or the port configured in your environment).
 
 ## 🏗 Project Structure
 
 ```
-registration.colourfully.digital/
-├── app/                     # Next.js 15 app directory
-│   ├── (auth)/             # Authentication routes
-│   ├── (dashboard)/        # Protected dashboard routes
-│   └── api/                # API routes
-├── components/             # React components
-│   ├── ui/                # ShadCN components
-│   └── shared/            # Shared components
-├── lib/                    # Utility functions and configurations
-├── types/                  # TypeScript type definitions
-├── styles/                # Global styles and Tailwind config
-└── public/                # Static assets
+.
+├── app.js                  # Main application file
+├── db.js                   # Database connection setup
+├── package.json            # Project dependencies and scripts
+├── schema.sql              # PostgreSQL database schema
+├── my_restart_script.sh    # Script to run/restart the server
+├── controllers/            # Contains business logic for routes
+├── routes/                 # Defines the application's routes
+├── utils/                  # Utility functions and middleware
+├── views/                  # EJS templates for the UI
+│   ├── layouts/
+│   ├── pages/
+│   └── partials/
+└── public/                 # Static assets (CSS, images, client-side JS)
 ```
 
 ## 🔧 Core Technologies
 
-- **Framework**: Remix with App Router
-- **Database**: Supabase (PostgreSQL)
-- **Authentication**: Clerk
-- **UI Components**: shadcn/ui
-- **Styling**: Tailwind CSS
-- **Communications**: Twilio
-- **State Management**: React Query & Zustand
-- **Forms**: React Hook Form & Zod
+-   **Backend**: Node.js with Express.js
+-   **Database**: PostgreSQL
+-   **Frontend**: EJS (Embedded JavaScript) for server-side rendering
+-   **Authentication**: Session-based authentication with `express-session` and password hashing with `bcrypt`.
+-   **Styling**: Plain CSS
 
 ## 🛠 Development
 
-### Commands
+### Running the App
 
+To run the application for development, you can use:
 ```bash
-pnpm dev          # Start development server
-pnpm build        # Build for production
-pnpm start        # Start production server
-pnpm lint         # Run ESLint
-pnpm test         # Run tests
-pnpm db:migrate   # Run database migrations
-pnpm db:seed      # Seed database with sample data
+node app.js
 ```
-
-### Code Style
-
-- We use ESLint and Prettier for code formatting
-- Run `pnpm lint` before committing
-- Use conventional commits for commit messages
-
-### Database Migrations
-
-Migrations are managed through Supabase migrations:
-
+Or, for a more robust startup that logs to a file, use the provided shell script:
 ```bash
-pnpm supabase migration new migration_name
-pnpm supabase migration up
-pnpm supabase migration down
+./my_restart_script.sh
 ```
+The script will handle stopping any existing process and starting a new one in the background. Logs will be written to `logs.log`.
+
+### Scripts
+
+-   `npm test`: This command is currently configured to run the `my_restart_script.sh`.
 
 ## 📚 Core Features
 
-1. **User Management**
-   - Multi-tenant authentication
-   - Role-based access control
-   - Organization management
-
-2. **Registration System**
-   - Program registration
-   - Waitlist management
-   - Document management
-
-3. **Payment Processing**
-   - Secure payments
-   - Payment plans
-   - Refund management
-
-4. **Program Management**
-   - Class/workshop management
-   - Attendance tracking
-   - Resource allocation
-
-## 🧪 Testing
-
-We use Jest and React Testing Library for testing:
-
-```bash
-pnpm test              # Run all tests
-pnpm test:watch       # Run tests in watch mode
-pnpm test:coverage    # Generate coverage report
-```
-
-## 📦 Deployment
-
-### Production Deployment
-
-1. Build the application:
-```bash
-pnpm build
-```
-
-2. Start the production server:
-```bash
-pnpm start
-```
-
-### Environment Variables
-
-Ensure all required environment variables are set in your deployment environment. See `.env.example` for required variables.
-
-## 🔒 Security
-
-- All API routes are protected with Clerk authentication
-- Database access is controlled through RLS policies
-- Sensitive data is encrypted at rest
-- Regular security audits are performed
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+-   **User Authentication**: Users can sign up, sign in, and sign out. Passwords are securely hashed.
+-   **Program Management**: Admins can create, update, delete, and view programs. Users can view program listings.
+-   **Dependent Management**: Authenticated users can manage their dependents (create, update, delete, view).
+-   **Role-Based Access**: The database schema includes roles for `admin`, `instructor`, and `parent_guardian`, allowing for different levels of access.
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the ISC License.
 
-## 🔍 Documentation
-
-- [API Documentation](docs/api.md)
-- [Database Schema](docs/database.md)
-- [Component Library](docs/components.md)
-- [Testing Guide](docs/testing.md)
-
-## 🙏 Acknowledgments
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Supabase Documentation](https://supabase.com/docs)
-- [Clerk Documentation](https://clerk.com/docs)
-- [shadcn/ui Components](https://ui.shadcn.com)
